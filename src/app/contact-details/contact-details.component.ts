@@ -12,6 +12,7 @@ import { Contacts } from '../models/contacts';
 export class ContactDetailsComponent implements OnInit{
   destroy$: Subject<boolean> = new Subject();
   contactDetails: any;
+  geoUrl: string= "";
 
   constructor(private router: Router,
               private route: ActivatedRoute){}
@@ -19,6 +20,7 @@ export class ContactDetailsComponent implements OnInit{
   ngOnInit(): void {
     this.route.data.pipe(takeUntil(this.destroy$)).subscribe((response: any) => {
       this.contactDetails = response.ContactDetails[0];
+      this.geoUrl = "https://www.latlong.net/c/?lat=" +  this.contactDetails.address.geo.lat + "&long=" + this.contactDetails.address.geo.lng;
     })
   }
 
